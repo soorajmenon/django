@@ -1,0 +1,17 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/misc.xml
+.idea/modules.xml
+.idea/workshop.iml
+.idea/workspace.xml
+media/
+registration/__init__.pyc
+registration/admin.pyc
+registration/models.pyc
+registration/templates/index.html
+registration/views.pyc
+static/admin/css/
+static/admin/img/
+static/admin/js/
+static/css/
+static/js/
