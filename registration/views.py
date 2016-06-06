@@ -3,7 +3,8 @@ from django.views.generic import TemplateView
 from braces.views import LoginRequiredMixin, AnonymousRequiredMixin
 from django.views.generic.edit import FormView, UpdateView
 from django.core.urlresolvers import reverse_lazy
-from forms import UserRegistrationForm
+from forms import UserRegistrationForm, ChocolateAddForm
+
 
 # Create your views here.
 class Home(TemplateView):
@@ -19,3 +20,13 @@ class UserRegistrationView(AnonymousRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return FormView.form_valid(self, form)
+
+class AddChocolateView(FormView):
+   template_name = "add_chocolate.html"
+   form_class = ChocolateAddForm
+   success_url = '/registration/chocolate/success'
+
+   def form_valid(self, form):
+       form.save()
+       return FormView.form_valid(self, form)
+
