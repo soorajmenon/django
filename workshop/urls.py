@@ -28,4 +28,7 @@ urlpatterns = [
         anonymous_required(auth_views.login),
         {'template_name': 'login.html'},
         name='login'),
-]
+      url(r'^user/logout/$',
+        auth_views.logout,
+        {'template_name': 'register/logout.html'},
+        name='logout'),]

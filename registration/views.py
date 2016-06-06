@@ -4,10 +4,13 @@ from braces.views import LoginRequiredMixin, AnonymousRequiredMixin
 from django.views.generic.edit import FormView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from forms import UserRegistrationForm, ChocolateAddForm
-
+from django.views.generic import ListView
+from registration.models import *
 
 # Create your views here.
-class Home(TemplateView):
+class Home(ListView):
+    def get_queryset(self):
+        return Chocolate.objects.all
 
     template_name="index.html"
 

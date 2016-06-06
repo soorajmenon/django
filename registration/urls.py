@@ -6,10 +6,11 @@ from registration import views
 from registration.views import *
 from registration.models import *
 from django.views.generic import TemplateView
+from django.views.generic import ListView
 
 urlpatterns = [
     url(r'^$', UserRegistrationView.as_view(), name='register_user'),
-    url(r'^user/success/', TemplateView.as_view(template_name='success.html'),
+    url(r'^user/success/', TemplateView.as_view(template_name='login.html'),
         name='page'),
     url(r'^chocolate/add/',AddChocolateView.as_view(), name="add_chocolate")
 
