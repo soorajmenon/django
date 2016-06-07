@@ -15,7 +15,9 @@ urlpatterns = [
     url(r'^user/success/', TemplateView.as_view(template_name='login.html'),
         name='page'),
     url(r'^chocolate/add/',AddChocolateView.as_view(), name="add_chocolate"),
-    url( r'^chocolate/info/(?P<choco_id>\d+)/$', ChocolateDetailsView.as_view(), name="chocolate_info")
+    url( r'^chocolate/info/(?P<choco_id>\d+)/$', ChocolateDetailsView.as_view(), name="chocolate_info"),
+    url(r'^user/profile/edit/$', UserProfileUpdateView.as_view(), name='edit_profile'),
+    url(r'^user/profile/edit/success', UserProfileUpdateView.as_view(template_name='success2.html'), name='edit_profile1'),
 
 
 ]

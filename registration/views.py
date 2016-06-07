@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from braces.views import LoginRequiredMixin, AnonymousRequiredMixin
 from django.views.generic.edit import FormView, UpdateView
 from django.core.urlresolvers import reverse_lazy
-from forms import UserRegistrationForm, ChocolateAddForm
+from forms import UserRegistrationForm, ChocolateAddForm, user_fields, user_extra_fields
 from django.views.generic import ListView
 from registration.models import *
 from django.views.generic import DetailView
@@ -28,13 +28,13 @@ class UserRegistrationView(AnonymousRequiredMixin, FormView):
         return FormView.form_valid(self, form)
 
 class AddChocolateView(FormView):
-   template_name = "add_chocolate.html"
-   form_class = ChocolateAddForm
-   success_url = '/registration/chocolate/success'
+    template_name = "add_chocolate.html"
+    form_class = ChocolateAddForm
+    success_url = '/registration/chocolate/success'
 
-   def form_valid(self, form):
-       form.save()
-       return FormView.form_valid(self, form)
+    def form_valid(self, form):
+        form.save()
+        return FormView.form_valid(self, form)
 
 class ChocolateDetailsView(DetailView):
     template_name = "chocolate_detail.html"
@@ -46,6 +46,26 @@ class ChocolateDetailsView(DetailView):
             return obj
         else:
             raise Http404("No details Found.")
+
+class CurrentUserMixin(object):
+    model = User
+
+    def get_object(self, *args, **kwargs):
+        try: obj = super(CurrentUserMixin, self).get_object(*args, **kwargs)
+        except AttributeError: obj = self.request.user
+        return obj
+
+
+class UserProfileUpdateView(LoginRequiredMixin, CurrentUserMixin, UpdateView):
+    model = User
+    fields = user_fields + user_extra_fields
+    template_name_suffix = 'update_form'
+    success_url = '/registration/user/profile/'
+
+
+
+
+
 
 
 
